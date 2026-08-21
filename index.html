@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakary Soumaré - Développeur Full-Stack</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jetbrains-mono/2.304/css/jetbrains-mono.min.css" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#0B1220;
+    --panel:#121B2E;
+    --panel-2:#0F1A2E;
+    --line:#223049;
+    --text:#E9EEF5;
+    --muted:#8FA0B8;
+    --accent:#F2994A;
+    --accent-2:#4FD1C5;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--accent); color:#0B1220;}
+
+  /* ---------- Layout shell ---------- */
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,18,32,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:700; font-size:15px;
+    color:var(--text);
+  }
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px;}
+  .navlinks a{color:var(--muted); transition:color .2s;}
+  .navlinks a:hover{color:var(--accent-2);}
+
+  /* ---------- Hero / Terminal ---------- */
+  header.hero{padding:72px 0 56px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--accent-2);
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:8px; height:8px; border-radius:50%;
+    background:var(--accent-2); box-shadow:0 0 8px var(--accent-2);
+  }
+  h1{
+    font-family:var(--mono); font-weight:800;
+    font-size:clamp(32px, 5vw, 52px);
+    line-height:1.15; letter-spacing:-0.01em;
+    margin-bottom:14px;
+  }
+  h1 .accent{color:var(--accent);}
+  .role{
+    font-size:19px; color:var(--muted); max-width:560px; margin-bottom:36px;
+  }
+
+  .terminal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px; background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{width:11px; height:11px; border-radius:50%;}
+  .dot.red{background:#FF5F56;} .dot.yellow{background:#FFBD2E;} .dot.green{background:#27C93F;}
+  .terminal-title{
+    margin-left:10px; font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .terminal-body{
+    padding:22px 20px; font-family:var(--mono); font-size:14.5px;
+    min-height:150px;
+  }
+  .prompt{color:var(--accent-2);}
+  .cmd{color:var(--text);}
+  .output{color:var(--muted); margin:6px 0 16px; white-space:pre-wrap;}
+  .cursor{
+    display:inline-block; width:8px; height:16px; background:var(--accent);
+    vertical-align:middle; animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- Section shell ---------- */
+  section{padding:56px 0; border-top:1px solid var(--line);}
+  .section-label{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+    letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px;
+  }
+  .section-title{
+    font-family:var(--mono); font-weight:700; font-size:26px; margin-bottom:32px;
+  }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+  }
+  .tl-item{position:relative; margin-bottom:36px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-28px; top:5px;
+    width:12px; height:12px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent-2);
+  }
+  .tl-role{font-weight:700; font-size:17px; margin-bottom:2px;}
+  .tl-meta{
+    font-family:var(--mono); font-size:12.5px; color:var(--accent-2); margin-bottom:10px;
+  }
+  .tl-desc{color:var(--muted); font-size:15px; max-width:640px;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .tag{
+    font-family:var(--mono); font-size:11.5px; padding:4px 10px;
+    border:1px solid var(--line); border-radius:20px; color:var(--muted);
+  }
+
+  /* ---------- Projects grid ---------- */
+  .projects{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media(max-width:680px){.projects{grid-template-columns:1fr;}}
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:24px; transition:border-color .2s, transform .2s;
+  }
+  .card:hover{border-color:var(--accent-2); transform:translateY(-3px);}
+  .card-title{font-weight:700; font-size:17px; margin-bottom:8px;}
+  .card-desc{color:var(--muted); font-size:14.5px; margin-bottom:14px;}
+
+  /* ---------- Skills ---------- */
+  .skills-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media(max-width:680px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-cat h3{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+    text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;
+  }
+
+  /* ---------- Contact / footer ---------- */
+  footer{padding:60px 0 40px; text-align:center;}
+  .contact-title{
+    font-family:var(--mono); font-weight:700; font-size:24px; margin-bottom:14px;
+  }
+  .contact-sub{color:var(--muted); margin-bottom:28px;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13.5px; padding:11px 22px;
+    border-radius:8px; border:1px solid var(--line); color:var(--text);
+    transition:all .2s;
+  }
+  .btn.primary{background:var(--accent); color:#0B1220; border-color:var(--accent); font-weight:700;}
+  .btn.primary:hover{background:#ffab6b;}
+  .btn:not(.primary):hover{border-color:var(--accent-2); color:var(--accent-2);}
+  .foot-note{margin-top:40px; font-family:var(--mono); font-size:12px; color:#4A5A75;}
+
+  :focus-visible{outline:2px solid var(--accent-2); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    .cursor{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">bakary<span>.</span>dev</div>
+    <div class="navlinks">
+      <a href="#projets" data-scroll="projets">Projets</a>
+      <a href="#parcours" data-scroll="parcours">Parcours</a>
+      <a href="#competences" data-scroll="competences">Compétences</a>
+      <a href="#contact" data-scroll="contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Disponible pour un stage - Automne 2026</div>
+    <h1>Bakary Soumaré<br><span class="accent">Ingénieur logiciel full-stack</span></h1>
+    <p class="role">Étudiant à la maîtrise en génie logiciel à l'UQAM. J'ai commencé avec Laravel et Angular, et je code aujourd'hui surtout en React et FastAPI. J'aime autant écrire une API propre que déboguer un truc cassé à 23h.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="terminal-title">bakary@montreal ~ </span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+        <div class="output">bakary - dev full-stack, café obligatoire avant 9h</div>
+        <div><span class="prompt">$</span> <span class="cmd">ls stack/</span></div>
+        <div class="output">react/  typescript/  fastapi/  postgres/  docker/  (et laravel/ des débuts)</div>
+        <div><span class="prompt">$</span> <span class="cmd">cat status.txt</span></div>
+        <div class="output">ouvert à un stage automne 2026 - écris-moi<span class="cursor"></span></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="projets">
+    <div class="section-label">Sélection</div>
+    <h2 class="section-title">Projets</h2>
+    <div class="projects">
+
+      <div class="card">
+        <div class="card-title">Plateforme de gestion - OBNL</div>
+        <p class="card-desc">Projet d'équipe pour un organisme à but non lucratif. J'ai pris en charge trois modules : Dons &amp; Paiements (avec l'intégration webhook, la partie la plus tordue), Événements et Corps de leadership - de l'API jusqu'aux tests.</p>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Voting Sonatel</div>
+        <p class="card-desc">Appli de vote en ligne, développée pendant mon stage à Dakar. J'ai passé pas mal de temps avec les équipes métiers pour bien comprendre ce dont elles avaient besoin avant de coder quoi que ce soit.</p>
+        <div class="tags">
+          <span class="tag">Laravel</span><span class="tag">Angular</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Gestion de la scolarité</div>
+        <p class="card-desc">Système de gestion scolaire pour Dev IT - inscriptions, notes et relations entre entités, avec une couche API structurée.</p>
+        <div class="tags">
+          <span class="tag">Laravel</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Gestion des outils - Java POO</div>
+        <p class="card-desc">Application logicielle complète en Java natif, conçue selon les principes de la programmation orientée objet.</p>
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">POO</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="parcours">
+    <div class="section-label">Trajectoire</div>
+    <h2 class="section-title">Parcours</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-role">Maîtrise en génie logiciel</div>
+        <div class="tl-meta">UQAM · 2024 - en cours</div>
+        <div class="tl-desc">Approfondissement en architecture logicielle, mesure logicielle, gestion de projet et assurance qualité.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-role">Développeur d'applications web</div>
+        <div class="tl-meta">Sonatel · Dakar · Janvier - Juillet 2024</div>
+        <div class="tl-desc">Conception et développement d'une application de vote en ligne avec Laravel, Angular et MySQL, en collaboration directe avec les équipes métiers pour la définition des besoins.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-role">Développeur d'applications web</div>
+        <div class="tl-meta">Dev IT · Dakar · Janvier - Mai 2023</div>
+        <div class="tl-desc">Conception et développement d'un système de gestion de la scolarité avec Laravel et MySQL, en collaboration directe avec les équipes métiers pour la définition des besoins.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-role">Licence professionnelle en informatique</div>
+        <div class="tl-meta">Génie logiciel · 2019 - 2022</div>
+        <div class="tl-desc">Fondations en développement logiciel, bases de données et méthodologies de projet.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="competences">
+    <div class="section-label">Boîte à outils</div>
+    <h2 class="section-title">Compétences</h2>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3>Langages &amp; Frameworks</h3>
+        <div class="tags">
+          <span class="tag">PHP</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">JavaScript</span>
+          <span class="tag">TypeScript</span><span class="tag">Laravel</span><span class="tag">Angular</span>
+          <span class="tag">React</span><span class="tag">Spring Boot</span><span class="tag">Flask</span><span class="tag">FastAPI</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Données &amp; Outils</h3>
+        <div class="tags">
+          <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">SQL</span>
+          <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Docker</span><span class="tag">Postman</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Méthodologies</h3>
+        <div class="tags">
+          <span class="tag">Agile/Scrum</span><span class="tag">UML</span><span class="tag">API REST</span>
+          <span class="tag">Tests unitaires</span><span class="tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Langues</h3>
+        <div class="tags">
+          <span class="tag">Français</span><span class="tag">Anglais</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="section-label" style="text-align:center;">Prochaine étape</div>
+    <div class="contact-title">On en parle ?</div>
+    <p class="contact-sub">Je cherche un stage pour l'automne 2026 - n'hésite pas à m'écrire.</p>
+    <div class="contact-links">
+      <a class="btn primary" href="mailto:bakarysoumare259@gmail.com">Envoyer un courriel</a>
+      <a class="btn" href="https://github.com/bakary91" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="foot-note">Montréal, QC · bakary.dev</div>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('[data-scroll]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(link.getAttribute('data-scroll'));
+      if(target){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
